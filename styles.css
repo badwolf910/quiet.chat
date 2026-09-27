@@ -61,6 +61,14 @@ h1 {
   overflow: hidden;
 }
 
+.chat-form,
+.chat-fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
 .controls,
 .composer {
   padding: 16px 20px;
