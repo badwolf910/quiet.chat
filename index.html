@@ -94,7 +94,7 @@
         plants: 0
       };
 
-      function addMessage(text, speaker) {
+      function addMessage(text, speaker, shouldFocus = false) {
         const item = document.createElement("li");
         item.className = `message ${speaker}`;
 
@@ -110,6 +110,11 @@
 
         messages.appendChild(item);
         item.scrollIntoView({ behavior: "smooth", block: "end" });
+
+        if (shouldFocus) {
+          item.tabIndex = -1;
+          item.focus();
+        }
       }
 
       function nextReply(selectedTopic) {
@@ -128,9 +133,8 @@
         }
 
         addMessage(text, "user");
-        addMessage(nextReply(topic.value), "assistant");
+        addMessage(nextReply(topic.value), "assistant", true);
         input.value = "";
-        input.focus();
       });
     </script>
   </body>
