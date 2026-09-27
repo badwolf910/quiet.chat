@@ -44,10 +44,17 @@ function addMessage(text, speaker) {
   item.appendChild(paragraph);
 
   messages.appendChild(item);
-  messages.scrollTo({
-    top: messages.scrollHeight,
-    behavior: prefersReducedMotion ? "auto" : "smooth"
-  });
+  if (!prefersReducedMotion && typeof messages.scrollTo === "function") {
+    try {
+      messages.scrollTo({
+        top: messages.scrollHeight,
+        behavior: "smooth"
+      });
+      return;
+    } catch (error) {}
+  }
+
+  messages.scrollTop = messages.scrollHeight;
 }
 
 function nextReply(selectedTopic) {
