@@ -17,7 +17,8 @@
         </p>
       </section>
 
-      <section class="chat-card" aria-label="Quiet chat">
+      <section class="chat-card" aria-labelledby="chat-heading">
+        <h2 id="chat-heading" class="sr-only">Quiet chat conversation</h2>
         <div class="controls">
           <label for="topic">Topic</label>
           <select id="topic" name="topic">
@@ -42,15 +43,21 @@
 
         <form id="chat-form" class="composer">
           <label class="sr-only" for="message">Your message</label>
-          <input
-            id="message"
-            name="message"
-            type="text"
-            maxlength="160"
-            placeholder="Perhaps ask about a favorite book, a sleepy cat, or a thriving plant."
-            required
-          />
-          <button type="submit">Send gently</button>
+          <p id="message-help" class="helper-text">
+            Try asking about a favorite book, a sleepy cat, or a thriving plant.
+          </p>
+          <div class="composer-row">
+            <input
+              id="message"
+              name="message"
+              type="text"
+              maxlength="160"
+              aria-describedby="message-help"
+              placeholder="Share a quiet thought."
+              required
+            />
+            <button type="submit">Send gently</button>
+          </div>
         </form>
       </section>
     </main>
