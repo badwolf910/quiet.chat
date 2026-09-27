@@ -113,6 +113,7 @@
     .search-input:focus { border-color: var(--red); }
     .search-icon { position: absolute; top: 8px; left: 5px; width: 11px; height: 11px; border: 1.3px solid #74786f; border-radius: 50%; }
     .search-icon::after { position: absolute; right: -4px; bottom: -3px; width: 5px; height: 1px; transform: rotate(45deg); background: #74786f; content: ""; }
+    .results-status { min-height: 14px; margin: -12px 0 18px; color: var(--muted); font-size: 10px; }
 
     .book-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 22px; row-gap: 34px; }
     .book-card { min-width: 0; animation: settle .42s both; }
@@ -280,6 +281,7 @@
           <input class="search-input" id="book-search" type="search" placeholder="A title, author, a feeling..." aria-label="Search books">
         </label>
       </div>
+      <p class="results-status" id="results-status" role="status" aria-live="polite"></p>
       <div class="book-grid" id="book-grid" aria-live="polite"></div>
     </section>
 
@@ -342,6 +344,7 @@
       { title: "Wintering", author: "Katherine May", genre: "Essays", price: 17, badge: "For a quiet day", isbn: "9780593189481", moods: ["comfort", "rest", "winter", "reflective", "gentle", "essays", "hard times"] }
     ];
     const grid = document.getElementById("book-grid");
+    const resultsStatus = document.getElementById("results-status");
     const search = document.getElementById("book-search");
     const count = document.getElementById("bag-count");
     const toast = document.getElementById("toast");
@@ -360,6 +363,9 @@
         const matchesQuery = `${book.title} ${book.author} ${book.genre}`.toLowerCase().includes(query);
         return matchesGenre && matchesQuery;
       });
+      const itemLabel = visibleBooks.length === 1 ? "book" : "books";
+      const categoryLabel = activeFilter === "All" ? "" : ` in ${activeFilter}`;
+      resultsStatus.textContent = `Showing ${visibleBooks.length} ${itemLabel}${categoryLabel}`;
 
       grid.innerHTML = visibleBooks.length ? visibleBooks.map((book) => `
         <article class="book-card">
@@ -388,6 +394,7 @@
         activeFilter = button.dataset.filter;
         document.querySelectorAll(".filter-button").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
         renderBooks();
+        grid.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
     });
     search.addEventListener("input", renderBooks);
