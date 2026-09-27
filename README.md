@@ -1,4 +1,5 @@
 # Chapter & Hearth
+https://badwolf910.github.io/quiet.chat/
 
 A cozy independent-bookshop storefront built with Vite, Bootstrap's responsive grid, and prefixed Tailwind utilities.
 
