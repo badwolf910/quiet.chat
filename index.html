@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quiet.chat</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">quiet.chat</p>
+        <h1>Polite conversations about quiet things.</h1>
+        <p class="intro">
+          Choose a calm topic, say hello gently, and enjoy a soft conversation
+          about books, cats, or plants.
+        </p>
+      </section>
+
+      <section class="chat-card" aria-label="Quiet chat">
+        <div class="controls">
+          <label for="topic">Topic</label>
+          <select id="topic" name="topic">
+            <option value="books">Books</option>
+            <option value="cats">Cats</option>
+            <option value="plants">Plants</option>
+          </select>
+        </div>
+
+        <ol id="messages" class="messages" aria-live="polite">
+          <li class="message assistant">
+            <p>Hello. It is lovely to chat quietly with you. What would you like to talk about today?</p>
+          </li>
+        </ol>
+
+        <form id="chat-form" class="composer">
+          <label class="sr-only" for="message">Your message</label>
+          <input
+            id="message"
+            name="message"
+            type="text"
+            maxlength="160"
+            placeholder="Perhaps ask about a favorite book, a sleepy cat, or a thriving plant."
+            required
+          />
+          <button type="submit">Send gently</button>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      const responses = {
+        books: [
+          "That sounds like a lovely reading moment. Do you have a favorite passage you return to when you want a little peace?",
+          "Books can feel like quiet company. What sort of stories make you feel most at ease?",
+          "That is a thoughtful bookish note. Would you like to share an author who always seems kind and wise?"
+        ],
+        cats: [
+          "Cats do have a gift for calm. What is the most peaceful thing a cat has done near you?",
+          "That sounds very sweet. Do you prefer the gentle purr of a sleepy cat or the soft stretch of a curious one?",
+          "A cat conversation is always welcome. What is your favorite small habit that makes cats so charming?"
+        ],
+        plants: [
+          "Plants make such patient companions. Which plant in your space feels happiest right now?",
+          "That sounds wonderfully green. Do you enjoy caring for leafy plants, herbs, or flowers most?",
+          "A quiet chat about plants is a lovely thing. What small sign of growth has delighted you lately?"
+        ]
+      };
+
+      const form = document.getElementById("chat-form");
+      const messages = document.getElementById("messages");
+      const topic = document.getElementById("topic");
+      const input = document.getElementById("message");
+      const responseIndex = {
+        books: 0,
+        cats: 0,
+        plants: 0
+      };
+
+      function addMessage(text, speaker) {
+        const item = document.createElement("li");
+        item.className = `message ${speaker}`;
+
+        const paragraph = document.createElement("p");
+        paragraph.textContent = text;
+        item.appendChild(paragraph);
+
+        messages.appendChild(item);
+        item.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
+
+      function nextReply(selectedTopic) {
+        const topicReplies = responses[selectedTopic];
+        const index = responseIndex[selectedTopic];
+        responseIndex[selectedTopic] = (index + 1) % topicReplies.length;
+        return topicReplies[index];
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const text = input.value.trim();
+        if (!text) {
+          return;
+        }
+
+        addMessage(text, "user");
+        addMessage(nextReply(topic.value), "assistant");
+        input.value = "";
+        input.focus();
+      });
+    </script>
+  </body>
+</html>
