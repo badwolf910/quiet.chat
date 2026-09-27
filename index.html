@@ -100,7 +100,7 @@
         plants: 0
       };
 
-      function addMessage(text, speaker, shouldFocus = false) {
+      function addMessage(text, speaker) {
         const item = document.createElement("li");
         item.className = `message ${speaker}`;
 
@@ -116,17 +116,13 @@
 
         messages.appendChild(item);
         item.scrollIntoView({ behavior: "smooth", block: "end" });
-
-        if (shouldFocus) {
-          item.tabIndex = -1;
-          item.focus();
-        }
       }
 
       function nextReply(selectedTopic) {
-        const topicReplies = responses[selectedTopic];
-        const index = responseIndex[selectedTopic];
-        responseIndex[selectedTopic] = (index + 1) % topicReplies.length;
+        const topicKey = responses[selectedTopic] ? selectedTopic : "books";
+        const topicReplies = responses[topicKey];
+        const index = responseIndex[topicKey] ?? 0;
+        responseIndex[topicKey] = (index + 1) % topicReplies.length;
         return topicReplies[index];
       }
 
@@ -139,8 +135,9 @@
         }
 
         addMessage(text, "user");
-        addMessage(nextReply(topic.value), "assistant", true);
+        addMessage(nextReply(topic.value), "assistant");
         input.value = "";
+        input.focus();
       });
     </script>
   </body>
