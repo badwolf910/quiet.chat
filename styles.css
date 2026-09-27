@@ -112,6 +112,8 @@ select {
   display: grid;
   gap: 14px;
   min-height: 300px;
+  max-height: 420px;
+  overflow-y: auto;
 }
 
 .message {

@@ -44,9 +44,9 @@ function addMessage(text, speaker) {
   item.appendChild(paragraph);
 
   messages.appendChild(item);
-  item.scrollIntoView({
-    behavior: prefersReducedMotion ? "auto" : "smooth",
-    block: "end"
+  messages.scrollTo({
+    top: messages.scrollHeight,
+    behavior: prefersReducedMotion ? "auto" : "smooth"
   });
 }
 
