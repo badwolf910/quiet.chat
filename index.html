@@ -104,7 +104,6 @@
     h2 { margin: 0; font: 500 34px/1.2 var(--serif); letter-spacing: 0; }
     .section-caption { margin: 0 0 3px; color: var(--muted); font-size: 11px; }
     .shelf-controls { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
-    .filters { display: flex; flex-wrap: wrap; gap: 6px; }
     .filter-button { padding: 8px 12px; border: 1px solid transparent; background: transparent; color: #73776e; cursor: pointer; font-size: 10px; transition: all .18s ease; }
     .filter-button:hover { color: var(--green); }
     .filter-button[aria-pressed="true"] { border-color: var(--green); color: var(--green); }
@@ -115,7 +114,6 @@
     .search-icon::after { position: absolute; right: -4px; bottom: -3px; width: 5px; height: 1px; transform: rotate(45deg); background: #74786f; content: ""; }
     .results-status { min-height: 14px; margin: -12px 0 18px; color: var(--muted); font-size: 10px; }
 
-    .book-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 22px; row-gap: 34px; }
     .book-card { min-width: 0; animation: settle .42s both; }
     @keyframes settle { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     .cover-wrap { position: relative; display: grid; height: 246px; place-items: center; overflow: hidden; background: #e9e5da; }
@@ -198,9 +196,7 @@
       h2 { font-size: 30px; }
       .shelf-controls { align-items: stretch; flex-direction: column-reverse; gap: 11px; }
       .search-wrap { flex-basis: auto; }
-      .filters { gap: 2px; }
       .filter-button { padding: 7px 9px; }
-      .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 27px 14px; }
       .cover-wrap { height: 220px; }
       .cover { height: 184px; }
       .reading-note { grid-template-columns: 1fr; }
@@ -270,7 +266,7 @@
         <p class="section-caption">Handpicked by people who really love to read.</p>
       </div>
       <div class="shelf-controls">
-        <div class="filters" role="group" aria-label="Filter books by genre">
+        <div class="filters tw-flex tw-flex-wrap tw-items-center tw-gap-1.5" role="group" aria-label="Filter books by genre">
           <button class="filter-button" type="button" aria-pressed="true" data-filter="All">All books</button>
           <button class="filter-button" type="button" aria-pressed="false" data-filter="Fiction">Fiction</button>
           <button class="filter-button" type="button" aria-pressed="false" data-filter="Essays">Essays</button>
@@ -282,7 +278,7 @@
         </label>
       </div>
       <p class="results-status" id="results-status" role="status" aria-live="polite"></p>
-      <div class="book-grid" id="book-grid" aria-live="polite"></div>
+      <div class="row row-cols-2 row-cols-md-4 g-4 book-grid" id="book-grid" aria-live="polite"></div>
     </section>
 
     <section class="reading-note" id="our-story" aria-labelledby="note-title">
@@ -531,5 +527,6 @@
     });
     renderBooks();
   </script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
