@@ -72,6 +72,14 @@ h1 {
   font-size: 0.95rem;
 }
 
+.breath-guide-reduced {
+  display: none;
+  margin: 0 0 0.8rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
 .breathing {
   width: 110px;
   height: 110px;
@@ -106,5 +114,13 @@ h1 {
   .breathing {
     animation: none;
     transform: scale(1);
+  }
+
+  .breath-guide {
+    display: none;
+  }
+
+  .breath-guide-reduced {
+    display: block;
   }
 }
