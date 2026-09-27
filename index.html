@@ -37,7 +37,10 @@
           role="log"
         >
           <li class="message assistant">
-            <p>Hello. It is lovely to chat quietly with you. What would you like to talk about today?</p>
+            <p>
+              <span class="sr-only">Assistant says: </span>
+              Hello. It is lovely to chat quietly with you. What would you like to talk about today?
+            </p>
           </li>
         </ol>
 
@@ -96,7 +99,13 @@
         item.className = `message ${speaker}`;
 
         const paragraph = document.createElement("p");
-        paragraph.textContent = text;
+        const speakerLabel = document.createElement("span");
+        speakerLabel.className = "sr-only";
+        speakerLabel.textContent =
+          speaker === "assistant" ? "Assistant says: " : "You say: ";
+
+        paragraph.appendChild(speakerLabel);
+        paragraph.appendChild(document.createTextNode(text));
         item.appendChild(paragraph);
 
         messages.appendChild(item);
